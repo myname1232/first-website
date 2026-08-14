@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>给你的悄悄话</title>
+    <style>
+        /* 让页面干净温柔 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(145deg, #f9f0f0 0%, #f1e4e8 100%);
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            padding: 20px;
+        }
+
+        .card {
+            max-width: 560px;
+            width: 100%;
+            background: rgba(255, 248, 245, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 48px;
+            padding: 48px 36px;
+            box-shadow: 0 20px 60px rgba(160, 120, 120, 0.15),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 235, 230, 0.4);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        /* 小装饰 - 浮动的小点，像星星 */
+        .card::before {
+            content: "✧  ✧  ✧";
+            display: block;
+            font-size: 14px;
+            letter-spacing: 12px;
+            color: #dbb8b8;
+            margin-bottom: 24px;
+            opacity: 0.6;
+        }
+
+        .message {
+            font-size: 22px;
+            line-height: 2;
+            color: #4a3a3a;
+            font-weight: 350;
+            letter-spacing: 1px;
+        }
+
+        .message span {
+            display: inline-block;
+            position: relative;
+        }
+
+        /* 每一句都有一点小温差 */
+        .line1 {
+            font-weight: 400;
+            color: #5e4545;
+        }
+        .line2 {
+            font-weight: 350;
+            color: #6b4f4f;
+        }
+        .line3 {
+            font-weight: 380;
+            color: #7a5a5a;
+        }
+        .line4 {
+            font-size: 28px;
+            margin-top: 12px;
+            letter-spacing: 6px;
+            color: #b28b8b;
+        }
+
+        /* 小尾巴 - 可爱的颜文字动起来 */
+        .footer-emoji {
+            margin-top: 32px;
+            font-size: 28px;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 4px 8px rgba(180, 130, 130, 0.2));
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(2deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        /* 在手机上更舒服 */
+        @media (max-width: 480px) {
+            .card {
+                padding: 36px 24px;
+                border-radius: 32px;
+            }
+            .message {
+                font-size: 19px;
+                line-height: 2.2;
+            }
+            .line4 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="message">
+            <div class="line1">不希望你总是累累的</div>
+            <div class="line2">希望你好好吃饭</div>
+            <div class="line3">好好睡觉</div>
+            <div class="line3" style="margin-bottom: 6px;">坏心情离你远远的</div>
+            <div class="line4">˶ᵒ ᵕ ˂˶ .ᐟ.ᐟ</div>
+        </div>
+        <div class="footer-emoji">☁️🌙✨</div>
+    </div>
+
+</body>
+</html>
