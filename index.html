@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>给你的悄悄话</title>
     <style>
-        /* 让页面干净温柔 */
         * {
             margin: 0;
             padding: 0;
@@ -17,113 +16,265 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(145deg, #f9f0f0 0%, #f1e4e8 100%);
-            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 40%, #e8eaf6 100%);
+            font-family: 'PingFang SC', 'Microsoft YaHei', 'Georgia', serif;
             padding: 20px;
-        }
-
-        .card {
-            max-width: 560px;
-            width: 100%;
-            background: rgba(255, 248, 245, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 48px;
-            padding: 48px 36px;
-            box-shadow: 0 20px 60px rgba(160, 120, 120, 0.15),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.6);
-            border: 1px solid rgba(255, 235, 230, 0.4);
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-
-        /* 小装饰 - 浮动的小点，像星星 */
-        .card::before {
-            content: "✧  ✧  ✧";
-            display: block;
-            font-size: 14px;
-            letter-spacing: 12px;
-            color: #dbb8b8;
-            margin-bottom: 24px;
-            opacity: 0.6;
-        }
-
-        .message {
-            font-size: 22px;
-            line-height: 2;
-            color: #4a3a3a;
-            font-weight: 350;
-            letter-spacing: 1px;
-        }
-
-        .message span {
-            display: inline-block;
+            overflow: hidden;
             position: relative;
         }
 
-        /* 每一句都有一点小温差 */
-        .line1 {
-            font-weight: 400;
-            color: #5e4545;
+        /* ===== 背景光晕 ===== */
+        .glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            pointer-events: none;
+            z-index: 0;
         }
-        .line2 {
-            font-weight: 350;
-            color: #6b4f4f;
+        .glow1 {
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 182, 193, 0.35);
+            top: -120px;
+            right: -100px;
         }
-        .line3 {
-            font-weight: 380;
-            color: #7a5a5a;
+        .glow2 {
+            width: 350px;
+            height: 350px;
+            background: rgba(206, 147, 216, 0.30);
+            bottom: -100px;
+            left: -80px;
         }
-        .line4 {
-            font-size: 28px;
-            margin-top: 12px;
-            letter-spacing: 6px;
-            color: #b28b8b;
+        .glow3 {
+            width: 200px;
+            height: 200px;
+            background: rgba(179, 157, 219, 0.25);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
 
-        /* 小尾巴 - 可爱的颜文字动起来 */
-        .footer-emoji {
-            margin-top: 32px;
+        /* ===== 卡片 ===== */
+        .card {
+            position: relative;
+            z-index: 1;
+            max-width: 560px;
+            width: 100%;
+            background: rgba(255, 248, 252, 0.55);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-radius: 56px;
+            padding: 52px 40px 44px;
+            box-shadow: 0 30px 80px rgba(180, 130, 160, 0.20),
+                        0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+            border: 1px solid rgba(255, 220, 240, 0.3);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        /* ===== 顶部装饰 ===== */
+        .card::before {
+            content: "♡  ♡  ♡";
+            display: block;
+            font-size: 16px;
+            letter-spacing: 14px;
+            color: #d9b3c9;
+            margin-bottom: 20px;
+            opacity: 0.7;
+            font-weight: 300;
+        }
+
+        /* ===== 文字 ===== */
+        .message {
+            font-size: 22px;
+            line-height: 2.3;
+            color: #4a3848;
+            font-weight: 340;
+            letter-spacing: 1.5px;
+        }
+
+        .message .line {
+            display: block;
+        }
+
+        .message .line1 {
+            font-weight: 380;
+            color: #6b4a5e;
+        }
+        .message .line2 {
+            font-weight: 350;
+            color: #7a5368;
+        }
+        .message .line3 {
+            font-weight: 360;
+            color: #8a5e76;
+        }
+        .message .line4 {
+            font-weight: 370;
+            color: #9a6a84;
+        }
+
+        /* ===== 中间那句「我们要一直幸福快乐地在一起」= 浪漫重点 ===== */
+        .message .special-line {
+            display: block;
+            margin-top: 24px;
+            font-size: 26px;
+            font-weight: 460;
+            background: linear-gradient(135deg, #d47b9e, #b873b3, #a484c7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2.5px;
+            text-shadow: 0 0 40px rgba(212, 123, 158, 0.25);
+            font-family: 'Georgia', 'PingFang SC', serif;
+        }
+
+        /* ===== 名字 ===== */
+        .message .name-line {
+            display: block;
+            margin-top: 10px;
             font-size: 28px;
+            font-weight: 400;
+            color: #b282a5;
+            letter-spacing: 4px;
+            font-family: 'Georgia', 'PingFang SC', serif;
+        }
+
+        .message .name-line .heart {
+            color: #e88aa6;
             display: inline-block;
-            animation: float 3s ease-in-out infinite;
-            filter: drop-shadow(0 4px 8px rgba(180, 130, 130, 0.2));
+            animation: heartbeat 1.8s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.25); }
+        }
+
+        /* ===== 颜文字 ===== */
+        .message .emoji-line {
+            display: block;
+            margin-top: 6px;
+            font-size: 30px;
+            letter-spacing: 3px;
+            color: #c28fb0;
+        }
+
+        /* ===== 底部浮动元素 ===== */
+        .footer-emoji {
+            margin-top: 28px;
+            font-size: 26px;
+            display: inline-block;
+            animation: float 3.5s ease-in-out infinite;
+            filter: drop-shadow(0 4px 12px rgba(200, 150, 180, 0.25));
+            letter-spacing: 8px;
         }
 
         @keyframes float {
             0% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-8px) rotate(2deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
             100% { transform: translateY(0px) rotate(0deg); }
         }
 
-        /* 在手机上更舒服 */
+        /* ===== 🍬 飘落的爱心花瓣 ===== */
+        .petals {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .petal {
+            position: absolute;
+            top: -40px;
+            font-size: 20px;
+            opacity: 0.55;
+            animation: fall linear infinite;
+            transform-origin: center;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(1);
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(105vh) rotate(720deg) scale(0.6);
+                opacity: 0.1;
+            }
+        }
+
+        /* ===== 手机适配 ===== */
         @media (max-width: 480px) {
             .card {
-                padding: 36px 24px;
-                border-radius: 32px;
+                padding: 36px 24px 32px;
+                border-radius: 40px;
             }
             .message {
                 font-size: 19px;
-                line-height: 2.2;
+                line-height: 2.4;
             }
-            .line4 {
-                font-size: 24px;
+            .message .special-line {
+                font-size: 21px;
+            }
+            .message .name-line {
+                font-size: 23px;
+            }
+            .message .emoji-line {
+                font-size: 26px;
             }
         }
     </style>
 </head>
 <body>
 
+    <!-- ===== 背景光晕 ===== -->
+    <div class="glow glow1"></div>
+    <div class="glow glow2"></div>
+    <div class="glow glow3"></div>
+
+    <!-- ===== 飘落爱心 ===== -->
+    <div class="petals" id="petalsContainer"></div>
+
+    <!-- ===== 主卡片 ===== -->
     <div class="card">
         <div class="message">
-            <div class="line1">不希望你总是累累的</div>
-            <div class="line2">希望你好好吃饭</div>
-            <div class="line3">好好睡觉</div>
-            <div class="line3" style="margin-bottom: 6px;">坏心情离你远远的</div>
-            <div class="line4">˶ᵒ ᵕ ˂˶ .ᐟ.ᐟ</div>
+            <span class="line line1">不希望你总是累累的</span>
+            <span class="line line2">希望你好好吃饭</span>
+            <span class="line line3">好好睡觉</span>
+            <span class="line line4">坏心情离你远远的</span>
+            <span class="special-line">✨ 我们要一直幸福快乐地在一起 ✨</span>
+            <span class="name-line"><span class="heart">♥</span> yyh and myl <span class="heart">♥</span></span>
+            <span class="emoji-line">˶ᵒ ᵕ ˂˶ .ᐟ.ᐟ</span>
         </div>
-        <div class="footer-emoji">☁️🌙✨</div>
+        <div class="footer-emoji">☁️🌙🩷🌸</div>
     </div>
+
+    <script>
+        // ===== 生成飘落的爱心花瓣 =====
+        (function createPetals() {
+            const container = document.getElementById('petalsContainer');
+            const symbols = ['♥', '♡', '✿', '🌸', '🩷'];
+            const count = 22;
+
+            for (let i = 0; i < count; i++) {
+                const el = document.createElement('div');
+                el.className = 'petal';
+                el.textContent = symbols[i % symbols.length];
+                el.style.left = Math.random() * 100 + '%';
+                el.style.fontSize = (14 + Math.random() * 18) + 'px';
+                el.style.opacity = 0.25 + Math.random() * 0.4;
+                el.style.animationDuration = (10 + Math.random() * 18) + 's';
+                el.style.animationDelay = (Math.random() * 18) + 's';
+                el.style.transform = `rotate(${Math.random() * 360}deg)`;
+                container.appendChild(el);
+            }
+        })();
+    </script>
 
 </body>
 </html>
